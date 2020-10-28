@@ -1,6 +1,8 @@
 package com.baeldung.crawler4j;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -34,7 +36,8 @@ public class MultipleCrawlerController {
         imageController.addSeed("https://www.baeldung.com/");
         
         CrawlerStatistics stats = new CrawlerStatistics();
-        CrawlController.WebCrawlerFactory<HtmlCrawler> htmlFactory = () -> new HtmlCrawler(stats);
+        Set<String> urlsToAdd = new HashSet<>();
+        CrawlController.WebCrawlerFactory<HtmlCrawler> htmlFactory = () -> new HtmlCrawler(stats, urlsToAdd);
         
         File saveDir = new File("src/test/resources/crawler4j");
         CrawlController.WebCrawlerFactory<ImageCrawler> imageFactory = () -> new ImageCrawler(saveDir);
